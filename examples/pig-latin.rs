@@ -87,8 +87,23 @@ pub fn word_to_pig_latin(word: &str, vowel_suffix_start: &str) -> String {
 fn map_words<F>(text: &str, mut word_processor: F) -> String
     where F: FnMut(&str) -> String
 {
-    static WORD_RE: Lazy<Regex> = Lazy::new(|| Regex::new(
-        r"(?x)
+    // XXX Should perhaps have other connecting punctuation not covered by the Unicode tables
+    // here?
+    // XXX Not sure how to avoid repeating the regex here. May not be a way on stable Rust
+    // currently.
+    #[cfg(not(feature = "split_hyphens"))]
+    const WORD_RE_STR: &'static str = r"(?x)
+            \p{Alphabetic} (
+                ( \p{Alphabetic}
+                  | \p{Join_Control}
+                  | \p{Mark}
+                  | \p{Connector_Punctuation}
+                  | [-'’]
+                )*
+              \p{Alphabetic} )?
+        ";
+    #[cfg(feature = "split_hyphens")]
+    const WORD_RE_STR: &'static str = r"(?x)
             \p{Alphabetic} (
                 ( \p{Alphabetic}
                   | \p{Join_Control}
@@ -97,8 +112,8 @@ fn map_words<F>(text: &str, mut word_processor: F) -> String
                   | ['’]
                 )*
               \p{Alphabetic} )?
-        "
-    ).unwrap());
+        ";
+    static WORD_RE: Lazy<Regex> = Lazy::new(|| Regex::new(WORD_RE_STR).unwrap());
     WORD_RE.replace_all(text, |w: &regex::Captures| {
         word_processor(w.get(0).unwrap().as_str())
     }).to_string()
