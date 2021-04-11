@@ -64,9 +64,9 @@ impl IgpayAtinlay {
         Self { vowel_suffix, re }
     }
 
-    /// Transform `word` to [Pig Latin](https://en.wikipedia.org/wiki/Pig_Latin). Word is
-    /// assumed to be in a [Romance language](https://en.wikipedia.org/wiki/Romance_languages):
-    /// see `[IsRomanceVowel][IsRomanceVowel]::[is_romance_vowel][is_romance_vowel]` for the
+    /// Transform `word` to [Pig Latin](https://en.wikipedia.org/wiki/Pig_Latin). Word is assumed
+    /// to be in a [Romance language](https://en.wikipedia.org/wiki/Romance_languages): see
+    /// [`is_vowel::IsRomanceVowel::is_romance_vowel`][IsRomanceVowel::is_romance_vowel] for the
     /// definition of "vowel" used here. Leading non-alphabetic characters will be stripped,
     /// trailing will be preserved.
     ///
