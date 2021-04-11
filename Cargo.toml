@@ -11,13 +11,10 @@ categories = ["text-processing"]
 
 [dependencies]
 regex = "1.4.5"
+is-vowel = "0.1.0"
 
 [dev-dependencies]
 version-sync = "0.9"
-
-[dependencies.is-vowel]
-git = "https://github.com/BartMassey/is-vowel"
-branch = "main"
 
 [badges.maintenance]
 status = "actively-developed"
