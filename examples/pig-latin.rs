@@ -1,4 +1,25 @@
-//! Solution to exercise 8.2 in [The Rust Programming Language](https://doc.rust-lang.org/book/)
+//! Pig Latin encoder for command-line arguments. Run like
+//!
+//! ```text
+//! cargo run --example pig-latin "Can't" touch this! Awoo-away!
+//! cargo run --example pig-latin "Can't touch this! Awoo-away!"
+//! ```
+//!
+//! Either of these will print
+//!
+//! ```text
+//! An'tcay ouchtay histay! Awoo-awayhay!
+//! ```
+//!
+//! Solution to [Exercise 8.2](https://doc.rust-lang.org/book/ch08-03-hash-maps.html#summary) in
+//! [The Rust Programming Language](https://doc.rust-lang.org/book/) The innocuous-looking
+//! phrase "Keep in mind the details about UTF-8 encoding!" in that exercise conceals a world of
+//! pain.
+//!
+//! At the end of the day, Pig Latin is not a well-defined dialect. This program will produce
+//! questionable results for complicated cases and non-Romance languages (for which the
+//! underlying crate has no idea of extra vowels). It will probably produce nonsense answers on
+//! "exotic" languages.
 //!
 //! # Authors
 //!
@@ -11,8 +32,8 @@
 //!   rewrote to get an [FP
 //!   solution](https://www.reddit.com/r/learnrust/comments/mo5lvd/rate_and_critic_my_solution_to_exercise_2_in/gu1w5s6).
 //!
-//! * Reddit [/u/po8](https://reddit.com/u/po8) rewrote
-//!   again into a more production-grade version.
+//! * Reddit [/u/po8](https://reddit.com/u/po8) rewrote again into a more production-grade
+//!   version. The rewrite ended up being pretty from-scratch.
 
 use is_vowel::IsRomanceVowel;
 
