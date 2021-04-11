@@ -1,8 +1,10 @@
+#![doc(html_root_url = "https://docs.rs/igpay-atinlay/0.1.0")]
+
 //! Text to [Pig Latin](https://en.wikipedia.org/wiki/Pig_Latin) conversion.
 //!
 //! This crate began as a solution to [Exercise
 //! 8.2](https://doc.rust-lang.org/book/ch08-03-hash-maps.html#summary) in [The Rust Programming
-//! Language](https://doc.rust-lang.org/book/) The innocuous-looking phrase "Keep in mind the
+//! Language](https://doc.rust-lang.org/book/). The innocuous-looking phrase "Keep in mind the
 //! details about UTF-8 encoding!" in that exercise conceals a world of pain.
 //!
 //! At the end of the day, Pig Latin is not a well-defined dialect. This program will produce

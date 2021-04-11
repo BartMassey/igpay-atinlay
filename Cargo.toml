@@ -3,10 +3,21 @@ name = "igpay-atinlay"
 version = "0.1.0"
 authors = ["Bart Massey <bart.massey@gmail.com>"]
 edition = "2018"
+description = "Translate text to Pig Latin"
+license = "MIT"
+repository = "https://github.com/BartMassey/igpay-atinlay"
+readme = "README.md"
+categories = ["text-processing"]
 
 [dependencies]
 regex = "1.4.5"
 
+[dev-dependencies]
+version-sync = "0.9"
+
 [dependencies.is-vowel]
 git = "https://github.com/BartMassey/is-vowel"
 branch = "main"
+
+[badges.maintenance]
+status = "actively-developed"
