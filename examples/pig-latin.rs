@@ -51,16 +51,28 @@ use regex::Regex;
 pub fn word_to_pig_latin(word: &str, vowel_suffix_start: &str) -> String {
     let mut chars = word.chars();
     let first = chars.next();
-    let mut result = match first {
+    let mut result: String = match first {
         Some(first) => {
             if first.is_romance_vowel() {
                 let mut result = word.to_string();
                 result += vowel_suffix_start;
                 result
             } else {
-                let mut result: String = chars.collect();
-                result.push(first);
-                result
+                if first.is_uppercase() {
+                    let (_, max_hint) = chars.size_hint();
+                    let max_hint = max_hint.unwrap_or(32);
+                    let mut result = String::with_capacity(max_hint);
+                    if let Some(second) = chars.next() {
+                        result.extend(second.to_uppercase());
+                    }
+                    result.extend(chars);
+                    result.extend(first.to_lowercase());
+                    result
+                } else {
+                    let mut result: String = chars.collect();
+                    result.push(first);
+                    result
+                }
             }
         }
         None => {
