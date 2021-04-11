@@ -5,16 +5,8 @@ authors = ["Bart Massey <bart.massey@gmail.com>"]
 edition = "2018"
 
 [dependencies]
-once_cell = "1.7.2"
 regex = "1.4.5"
 
 [dependencies.is-vowel]
 git = "https://github.com/BartMassey/is-vowel"
 branch = "main"
-
-[features]
-# To maintain performance while keeping code "simple", this
-# crate currently forces you to choose whether to treat a
-# hyphenated word like "sugar-daddy" as one word or
-# two. Enable this feature to get two.
-split_hyphens = []
