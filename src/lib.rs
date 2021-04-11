@@ -40,15 +40,11 @@ impl IgpayAtinlay {
     /// `vowel_suffix` is the string appended before "ay" after words beginning with a vowel:
     /// this is usually "w" or "h", but also might be "j", "" or any of a number of other
     /// things depending on the Pig Latin "dialect".
-    /// 
+    ///
     /// Iff `split_hyphens` is `true`, treat hyphens as word boundaries.
     pub fn new(vowel_suffix: &str, split_hyphens: bool) -> Self {
         let vowel_suffix = vowel_suffix.to_string();
-        let hyphen = if split_hyphens {
-            ""
-        } else {
-            "-"
-        };
+        let hyphen = if split_hyphens { "" } else { "-" };
         // XXX Should perhaps have other connecting punctuation not covered by the Unicode
         // tables here?
         let word_re = format!(
@@ -121,11 +117,14 @@ impl IgpayAtinlay {
 
     /// Map alphabetic words in `text` using the `word_processor` mapping function.
     fn map_words<F>(&self, text: &str, mut word_processor: F) -> String
-        where F: FnMut(&str) -> String
+    where
+        F: FnMut(&str) -> String,
     {
-        self.re.replace_all(text, |w: &regex::Captures| {
-            word_processor(w.get(0).unwrap().as_str())
-        }).to_string()
+        self.re
+            .replace_all(text, |w: &regex::Captures| {
+                word_processor(w.get(0).unwrap().as_str())
+            })
+            .to_string()
     }
 
     /// Transform `text` to Pig Latin
