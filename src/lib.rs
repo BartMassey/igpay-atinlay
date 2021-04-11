@@ -26,6 +26,7 @@ use is_vowel::IsRomanceVowel;
 use regex::Regex;
 
 /// Transformer from text to Pig Latin.
+#[derive(Debug, Clone)]
 pub struct IgpayAtinlay {
     re: Regex,
     vowel_suffix: String,
@@ -68,9 +69,23 @@ impl IgpayAtinlay {
     /// Transform `word` to [Pig Latin](https://en.wikipedia.org/wiki/Pig_Latin). Word is
     /// assumed to be in a [Romance language](https://en.wikipedia.org/wiki/Romance_languages):
     /// see `[IsRomanceVowel][IsRomanceVowel]::[is_romance_vowel][is_romance_vowel]` for the
-    /// definition of "vowel" used here.
+    /// definition of "vowel" used here. Leading non-alphabetic characters will be stripped,
+    /// trailing will be preserved.
+    ///
+    /// # Examples
+    ///
+    ///     # use igpay_atinlay::IgpayAtinlay;
+    ///     let pig = IgpayAtinlay::new("h", false);
+    ///     assert_eq!(pig.word_to_pig_latin("Aye"), "Ayehay");
+    ///     let pig = IgpayAtinlay::new("", false);
+    ///     assert_eq!(pig.word_to_pig_latin("Aye"), "Ayeay");
+    ///     let pig = IgpayAtinlay::new("w", false);
+    ///     assert_eq!(pig.word_to_pig_latin("argle-bargle"), "argle-bargleway");
+    ///     let pig = IgpayAtinlay::new("w", false);
+    ///     assert_eq!(pig.word_to_pig_latin("ding-dong"), "ing-dongday");
+    ///     assert_eq!(pig.word_to_pig_latin("*ding-dong*"), "ing-dong*day");
     pub fn word_to_pig_latin(&self, word: &str) -> String {
-        let mut chars = word.chars();
+        let mut chars = word.chars().skip_while(|c| !c.is_alphabetic());
         let first = chars.next();
         let mut result: String = match first {
             Some(first) => {
@@ -112,6 +127,13 @@ impl IgpayAtinlay {
     }
 
     /// Transform `text` to Pig Latin
+    ///
+    /// # Examples
+    ///
+    ///     # use igpay_atinlay::IgpayAtinlay;
+    ///     let pig = IgpayAtinlay::new("h", false);
+    ///     let pigtext=pig.text_to_pig_latin("Can't touch this! Awoo-away!");
+    ///     assert_eq!(pigtext, "An'tcay ouchtay histay! Awoo-awayhay!");
     pub fn text_to_pig_latin(&self, text: &str) -> String {
         self.map_words(text.as_ref(), |w| self.word_to_pig_latin(w))
     }
